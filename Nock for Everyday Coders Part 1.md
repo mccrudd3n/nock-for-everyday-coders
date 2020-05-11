@@ -1,11 +1,14 @@
-# Nock for Normal Coders, Part 1: Basic Functions and Opcodes
+# Nock for Everyday Coders, Part 1: Basic Functions and Opcodes
+By `~timluc-miptev`
+Twitter: `@basile_sportif`
+
 ## tldr/Intro;
 ### For Whom?
 Nock is not super complex, and most normal programmers can learn the basics of it rapidly. The mental model you gain from Nock turns out to be **very** useful in learning Hoon and understanding Urbit.
 
 The Urbit docs generally suggest not worrying about Nock, but it's very simple and small, so I think most normal programmers will feel **more** comfortable in Hoon if they learn its basics.
 
-By "normal programmer", I mean: a person of decently above-average IQ (programming is a pretty self-selecting profession) who works relatively high up the modern tech stack, abstracted from low-level stuff. His/her day job likely consists of a lot of React/JS/SQL/Rails/Java etc, and he/she is not really familiar with assembly/OS stuff.  That basically describes me and most programmers I know.
+By "normal programmer", I mean: a person of somewhat above-average IQ (programming is a pretty self-selecting profession) who works relatively high up the modern tech stack, abstracted from low-level stuff. His/her day job likely consists of a lot of React/JS/SQL/Rails/Java etc, and he/she is not really familiar with assembly/OS stuff.  That describes me and most programmers I know.
 
 What about people who aren't programmers? Anecdotally, they seem to have less trouble "getting" Hoon, so this might not be necessary for them. This might be because people who *have* coded a lot intuitively want to know what is "magic" and what's not in a given language, and learning Nock seems to give a better intuitive feel for that than just starting with Hoon.
 
@@ -43,9 +46,9 @@ The key thing to understand is that there are **two different audiences** here:
 1. People who want to write interpreters for Nock
 2. People who want to write Nock code
 
-The symbols and spec are for the former. They are pseudocode, **not real Nock code**. They could just as easily be written in English, and they **will never be written down as actual Nock code and given to an interpreter**. We'll look at them slowly as we get into Nock code examples.
+The symbols and spec are for the former. They are pseudocode, **not real Nock code**. They could just as easily be written in English, and they **will never be written down as actual Nock code and given to an interpreter**. We'll use the pseudocode as a substitute for English below where it's helpful, but it will always be clearly separated from actual Nock code.
 
-The lists of numbers are the **actual Nock code**. That is what we will be focusing on, and we'll use a combination of English and the pseudocode symbols (if/when they're helpful) to understand them.
+The lists of numbers are the **actual Nock code**. That is what we will be focusing on, and we'll use a combination of English and the pseudocode symbols (when helpful) to understand them.
 
 ### How Nock Works
 It's simple. 
@@ -357,7 +360,7 @@ If we take the returned collection `[[19 20] 76 22]` in order, we can write in E
 
 So we can pass one small subject (`[19 20]`) and make an arbitrarily long collection of values from it, using any functions we want. Cell-Maker ftw!
 
-## `3` and `5`, the "Cell Checker" and "Equality Test" Functions
+## `3` and `5`, the "Is This a Cell?" and "Equality Test" Functions
 Now we come to functions/opcodes `3` and `5`, which are pretty straightforward after we've seen how `4` and the Cell-Maker work.
 Functions `3` and `5`, like `4`, allow nested evaluation. Let's put all their pseudocode definitions together to compare:
 ```
@@ -492,16 +495,114 @@ Example 4 -- `5` knows how to compare cells, not just atoms. Erotic.
 ```
 
 ## `2`, the "Subject-Altering" Function/Opcode
+In all our examples so far, the subject has been defined at the start when we call the interpreter, and never changes. But what if we want a different subject?
 
-***WIP TODO***
-Gonna talk here about how `2` lets us:
-1. run one function to set up a new environment/subject derived from the subject (or a static quoted value)
-2. prepare a 2nd function at the same time
-3. run that 2nd function against the new environment/subject from **(1)**
 
-## End of Part 1: Summary
+### Motivation, or "Why Would I Want a Different Subject?"
+ 
+A different subject? Why would we want that? Here's an easy example. Say you found the following piece of Nock code on the [interwebz](https://urbit.org/docs/tutorials/nock/example/):
+```
+[8 [1 0] 8 [1 6 [5 [0 7] 4 0 6] [0 6] 9 2 [0 2] [4 0 6] 0 7] 9 2 0 1]
+```
+This is the code for a Nock function that expects a subject that is an atom, and decrements that subject by 1.  You could actually enter it in the Dojo right now:
+```
+~zod:dojo> .*(100 [8 [1 0] 8 [1 6 [5 [0 7] 4 0 6] [0 6] 9 2 [0 2] [4 0 6] 0 7] 9 2 0 1])
+99
+```
+It works! You **do not have to understand the code right now**; just try entering different numbers instead of `100` to see the program working.
+
+But now imagine that I have a Nock program with a different subject
+```
+~zod:dojo> .*([50 51] some-formula)
+```
+And somewhere inside `some-formula`, I want to decrement the number `51`.  I can't pass `[50 51]` as the subject to my decrementer code above though, because that's a cell, and it expects just an atom (a number).
+
+### Subject Altering to the Rescue
+The function/opcode `2` is designd to handle this problem for us. Here's the pseudocode, and then I'll explain what the pseudocode means.
+```
+:: PSEUDOCODE
+*[a 2 b c]  *[*[a b] *[a c]]
+```
+
+`2` expects 2 formulas after the subject `a`: `b` and `c`. With those, it:
+1. runs formula `b` against the subject to set up a new environment/subject derived from the subject
+2. runs formula `c` against the subject to prepare a 2nd function.
+3. run that 2nd function against the new environment/subject from step ***(1)***
+
+Note that the pseudocode for `2` has nested `*`s.
+```
+*[*[a b] *[a c]]
+```
+The 2 inner `*`s run steps ***(1)*** and ***(2)***, and the outer one, around the whole expression, runs step ***(3)***.
+
+### Examples
+
+#### Example 1 — change the subject, have step ***(2)*** just call a constant value
+```
+~zod:dojo> .*([50 51] [2 [0 3] [1 [4 0 1]]])
+52
+:: PSEUDOCODE
+*[[50 51] [2 [0 3] [1 [4 0 1]]]]
+:: separate b and c to each run against the subject (steps 1 and 2)
+*[*[[50 51] [0 3]] *[[50 51] [1 [4 0 1]]]]
+:: after steps 1 and 2, we have a new subject, 51!
+:: note how we're back in normal *[subject formula] form
+*[51 [4 0 1]]
+:: apply the 4 function as we're used to
++*[51 [0 1]]
+:: grab 51 from memory slot 1
++(51)
+52
+```
+
+#### Example 2 — grab a block of code from the subject in step ***(2)***, then run it in step ***(3)***.
+
+```
+~zod:dojo> .*([[4 0 1] 51] [2 [0 3] [0 2]]])
+52
+:: PSEUDOCODE, subject is [[4 0 1] 51]
+*[[[4 0 1] 51] [2 [0 3] [0 2]]]]
+*[*[[[4 0 1] 51] [0 3]
+  *[[[4 0 1] 51][0 2]]
+:: step 1 gets memory slot 3, step 2 grabs memory slot 2
+*[51 [4 0 1]]
+:: looks like a normal 4 opcode to me!
++*[51 [0 1]]
+:: grab memory slot 1
++(51)
+52
+```
+
+#### Example 3: Back to Our Motivating Case
+Remember our decrementing block of code that we couldn't use when the subject was `[50 51]`, instead of just an atom? Opcode `2` makes handling that issue a piece of cake.  
+
+We simply use `2` to transform our subject into an atom, and use `1` to quote the decrement block of code before it evaluates in step ***(3)***.
+```
+~zod:dojo> .*([50 51] [2 [0 2] [1 [8 [1 0] 8 [1 6 [5 [0 7] 4 0 6] [0 6] 9 2 [0 2] [4 0 6] 0 7] 9 2 0 1]]])
+49
+:: PSEUDOCODE (subject is [50 51])
+:: I substitute "decrement-formula" for that block of Nock code for clarity
+*[[50 51] [2 [0 2] [1 decrement-formula]]]
+*[*[[50 51] [0 2]] *[[50 51] [1 decrement-formula]]]
+:: 1, the quoting function, just returns the decrement-formula, like in Example 1
+*[50 decrement-formula]
+::decrement-formula has the atom subject that it wants now!
+49
+```
+
+## Summary and First Hoon Connections
+For those who know a bit of Hoon, Example 2 above is similar-ish to calling an arm that produces a gate, and then running the gate. Most of Hoon runs this type of code-getting + subject-altering Nock, and it all uses opcode `2` at its base.
+
+And for those who know Hoon, `[[4 0 1] 51]` should already be looking a lot like `[battery payload]`...that's not a coincidence.
+
+We're starting to see the first glimpses of how Hoon's cores, arms and subjects/subject mutations flow out of the fundamental structure of Nock.
+
+We also see how Hoon/Nock lend themselves well to throwing around chunks of code, and adjusting the subject as necessary to create the correct subject/environment against which to run that code.
+
+## End of Part 1
+
 You now have seen all the fundamental functions/opcodes in Nock. In Part 2, I'll introduce the remaining functions, which no longer need pseudocode: we have enough scaffolding now to build the rest of Nock from Nock itself. Instead, these new opcodes will just be shortcuts/macros/code expansions of opcodes `1`-`5`.
 
-If you're impatient and feel like you're comfortable with Nock now, you can skip my stuff, and jump directly to the section of the [Nock Explanation](https://urbit.org/docs/tutorials/nock/explanation/) titled **Sugar**.
+If you already feel like you're comfortable with Nock now, you can skip my Part 2, and jump directly to the section of the [Nock Explanation](https://urbit.org/docs/tutorials/nock/explanation/) titled **Sugar** to see the rest of the opcodes explained.
 
 We'll also start to connect Nock to Hoon, and see how most of the fundamental (and slightly weird) features of Hoon flow directly from Nock's structure, and make a lot more sense in combination with it.
