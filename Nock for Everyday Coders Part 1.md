@@ -1,19 +1,19 @@
 # Nock for Everyday Coders, Part 1: Basic Functions and Opcodes
 By `~timluc-miptev`
 
-Twitter: `@basile_sportif`
+Twitter: [@basile_sportif](https://twitter.com/basile_sportif)
 
 ## Table of Contents
-1. [Intro]
+1. [Intro](#tldrintro)
 2. [Getting Started and Confusing Points](#getting-started--confusing-points)
-3. [Nock's Simplest Functions, 0 and 1]
-4. [4, the Incrementing Function]
-5. [Cell-Maker (aka the Distribution Rule)]
-6. [3 and 5, the "Is This a Cell?" and "Equality Test" Functions]
-7. [2, the "Subject-Altering" Function]
-8. [Summary and First Hoon Connections]
-9. [End of Part 1]
-## tldr/Intro;
+3. [Nock's Simplest Functions, 0 and 1](#nocks-simplest-functions-0-and-1)
+4. [4, the Incrementing Function](#4-the-incrementing-function)
+5. [Cell-Maker (aka the Distribution Rule)](#the-cell-maker-aka-the-distribution-rule)
+6. [3 and 5, the "Is This a Cell?" and "Equality Test" Functions](#3-and-5-the-is-this-a-cell-and-equality-test-functions)
+7. [2, the "Subject-Altering" Function](#2-the-subject-altering-function)
+8. [Summary and First Hoon Connections](#summary-and-first-hoon-connections)
+9. [End of Part 1](#end-of-part-1)
+## tldr;/Intro
 ### For Whom?
 Nock is not super complex, and most normal programmers can learn the basics of it rapidly. The mental model you gain from Nock turns out to be **very** useful in learning Hoon and understanding Urbit.
 
