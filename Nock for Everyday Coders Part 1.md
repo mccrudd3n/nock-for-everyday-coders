@@ -2,6 +2,16 @@
 By `~timluc-miptev`
 Twitter: `@basile_sportif`
 
+## Table of Contents
+1. [Intro]
+2. [Getting Started and Confusing Points](#getting-started--confusing-points)
+3. [Nock's Simplest Functions, 0 and 1]
+4. [4, the Incrementing Function]
+5. [Cell-Maker (aka the Distribution Rule)]
+6. [3 and 5, the "Is This a Cell?" and "Equality Test" Functions]
+7. [2, the "Subject-Altering" Function]
+8. [Summary and First Hoon Connections]
+9. [End of Part 1]
 ## tldr/Intro;
 ### For Whom?
 Nock is not super complex, and most normal programmers can learn the basics of it rapidly. The mental model you gain from Nock turns out to be **very** useful in learning Hoon and understanding Urbit.
@@ -97,7 +107,7 @@ Whenever we look at Nock code, we want to ask:
 
 Why is the return value `42`? How does this formula work?
 
-## Nock's Simplest Functions
+## Nock's Simplest Functions, `0` and `1`
 The two most basic Nock functions are `0` and `1`. The goal here is to get strong intuitions of what they do, how they handle edge cases, and how this relates to the Nock spec/pseudocode.
 
 ### `0`, the "Memory Slot" Function
@@ -494,7 +504,7 @@ Example 4 -- `5` knows how to compare cells, not just atoms. Erotic.
 0
 ```
 
-## `2`, the "Subject-Altering" Function/Opcode
+## `2`, the "Subject-Altering" Function
 In all our examples so far, the subject has been defined at the start when we call the interpreter, and never changes. But what if we want a different subject?
 
 
