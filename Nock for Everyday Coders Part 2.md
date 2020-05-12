@@ -1,8 +1,6 @@
 # Nock for Everyday Coders, Part 2: the Rest of Nock
 
-## Detour: Odds and Ends from the [Prior Section](Nock for Everyday Coders Part 1.md)
-
-
+## Detour: Odds and Ends from Part 1
 ### Use of the Quoter/Constant Function, `1`
 - heavy use
 - because
