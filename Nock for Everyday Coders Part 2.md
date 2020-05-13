@@ -11,14 +11,12 @@ In fact, that's not a bad way to think of Hoon: it's a higher-level language tha
 ***Nock is intentionally very, very small, such that you can always walk through and analyze what is happening in a block of code if you know Nock's opcodes.***
 
 ## Table of Contents
-1. [An Opening Note about the `1` Function]
-2. [`6`, "If/Else"]
-3. [`7`, the "Composition" Opcode]
-4. [`8`, the "Variable Adder" Opcode]
-5. [`9`, Create a Core and Run One of Its Arms]
-6. [Hoon Connections]
-7. [Odds and Ends]
-8. [Real Nock Code]
+1. [An Opening Note about the `1` Function](#an-opening-note-about-the-1-function)
+2. [`6`, "If/Else"](#6-ifelse)
+3. [`7`, the "Composition" Opcode](#7-the-composition-opcode)
+4. [`8`, the "Variable Adder" Opcode](#8-the-variable-adder-opcode)
+5. [`9`, Create a Core and Run One of Its Arms](#9-create-a-core-and-run-one-of-its-arms)
+6. [Real Nock Code](#real-nock-code)
 
 ## An Opening Note about the `1` Function
 You're going to see the `1` opcode (the "Quoter") appear in a lot of examples below for a simple reason: the `6`-`9` opcodes expect formulas in a lot of places, not just atoms. And, as we've seen already, formulas have to be cells.
@@ -297,6 +295,8 @@ This is also an opcode `6` if-else. once again, it compares something to the val
 If not, it means our input was neither `0` nor `1` and is not a boolean, so we run the formula `[0 0]`, which always crashes (there is no  memory slot `0`). This is exactly what we want--crash if the sample is not a boolean!
 
 ## Summary
-In Part 2, we've seen how to use all the remaining opcodes, which build Nock up to a slightly more expressive level. We also saw how Hoon cores start to arise pretty naturally out of the Nock primitives, especially `8` and `9`. Finally, we walked through real production Nock code to show that everything we've learned so far works exactly as expected in the wild.
+In Part 2, we've seen how to use all the remaining opcodes, which build Nock up to a slightly more expressive level. We also saw how Hoon cores start to arise pretty naturally out of the Nock primitives, especially `8` and `9`. Then we walked through real production Nock code to show that everything we've learned so far works exactly as expected in the wild.
 
 In Part 3, you'll learn how to write real programs in Nock, and compose those programs to make new ones.
+
+Finally, hopefully you now see that, whatever its other limitations, Nock is not particularly obscurantist, and is fairly straightforward to parse, once you understand its syntax and idioms.
