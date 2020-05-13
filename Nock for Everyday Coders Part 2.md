@@ -25,6 +25,7 @@ Whenever a formula is required, but you really just want to return a number, you
 
 ### Example 1: Increment the Number 5
 ```
+:: we just want to run 4 on the number 5, but 4 expects a formula after it, so we use [1 5]
 ~zod:dojo> .*(0 [4 1 5])
 6
 ```
