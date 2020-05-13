@@ -68,6 +68,7 @@ Let's say we have `a` as `59`, and `b` just the quoted value `0` (true)
 ```
 *[a 4 4 b]
 :: a: 59
+:: b: [1 0]
 *[59 4 4 [1 0]]
 :: substitute out the two increment operators
 ++*[59 [1 0]]
