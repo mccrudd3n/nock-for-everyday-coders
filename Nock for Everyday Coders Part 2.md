@@ -25,7 +25,8 @@ Whenever a formula is required, but you really just want to return a number, you
 
 ### Example 1: Increment the Number 5
 ```
-~zod:dojo> .*(
+~zod:dojo> .*(0 [4 1 5])
+6
 ```
 
 ### Example 2: Compare a Memory Slot to a Number
