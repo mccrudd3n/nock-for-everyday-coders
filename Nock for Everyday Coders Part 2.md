@@ -122,6 +122,28 @@ And now we're back at the top level, where we just use whichever formula we yoin
 59
 ```
 
+### Example Code Expansion of `6`
+```
+~zod:dojo> .*(1 [6 [0 1] [0 1] [4 0 1]])
+:: PSEUDOCODE
+:: expansion: *[a *[[c d] 0 *[[2 3] 0 *[a 4 4 b]]]]
+*[1 *[[[0 1] [4 0 1]] 0 *[[2 3] 0 *[1 4 4 [0 1]]]]]
+:: factor out the 4 opcodes
+*[1 *[[[0 1] [4 0 1]] 0 *[[2 3] 0 ++*[1 [0 1]]]]]
+:: b evaluates to 1 (yank memory slot 1)
+*[1 *[[[0 1] [4 0 1]] 0 *[[2 3] 0 ++(1)]]]
+:: evaluate the two increments
+*[1 *[[[0 1] [4 0 1]] 0 *[[2 3] 0 3]]]
+:: get memory slot 3 from [2 3]
+*[1 *[[[0 1] [4 0 1]] 0 3]]
+:: [0 3] means get memory slot 3 from the subject (formula [4 0 1])
+*[1 [4 0 1]]
+:: factor out the 4 opcode
++*[1 [0 1]]
++(1)
+2
+```
+
 ### Summary of `6`
 Now I'm going to make you a little sad. Most Nock interpreters don't do this whole awesome code expansion. They just see `6`, and implement an if/else check with a crash if `*[a b]` isn't a boolean.
 
