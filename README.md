@@ -29,24 +29,25 @@ If I say something here and you're like *"wait, isn't that already in the Nock d
 <details>
 <summary> Nock for Everyday Coders Part 1 </summary>
 <ul>
-<li> <a href="**Link**">Getting Started and Confusing Points</a> </li>
-<li> <a href="**Link**">Nock's Simplest Functions, `0` and `1`</a> </li>
-<li> <a href="**Link**">Incrementing Function `4`</a> </li>
-<li> <a href="**Link**">Cell-Maker (aka the Distribution Rule)</a> </li>
-<li> <a href="**Link**">`3` and `5`, The "Is This a Cell?" and "Equality Test" Functions</a> </li>
-<li> <a href="**Link**">The "Subject-Altering" Function</a> </li>
-<li> <a href="**Link**">Summary and First Hoon Connections</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%201.md#getting-started--confusing-points">Getting Started and Confusing Points</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%201.md#nocks-simplest-functions-0-and-1">Nock's Simplest Functions, `0` and `1`</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%201.md#1-the-quoter-function"> `1` The "Quoter" Function</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%201.md#4-the-incrementing-function">Incrementing Function `4`</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%201.md#the-cell-maker-aka-the-distribution-rule">Cell-Maker (aka the Distribution Rule)</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%201.md#3-and-5-the-is-this-a-cell-and-equality-test-functions">`3` and `5`, The "Is This a Cell?" and "Equality Test" Functions</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%201.md#2-the-subject-altering-function"> `2` The "Subject-Altering" Function</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%201.md#summary-and-first-hoon-connections">Summary and First Hoon Connections</a> </li>
 </ul>
 </details>
 
 <details>
 <summary> Nock for Everyday Coders Part 2 </summary>
 <ul>
-<li> <a href="**Link**">An Opening Note about the `1` Function</a> </li>
-<li> <a href="**Link**">`6`, "If/Else"</a> </li>
-<li> <a href="**Link**">`7`, the "Composition" Opcode</a> </li>
-<li> <a href="**Link**">`8`, the "Variable Adder" Opcode</a> </li>
-<li> <a href="**Link**">`9`, Create a Core and Run One of Its Arms</a> </li>
-<li> <a href="**Link**">Real Nock Code</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%202.md#an-opening-note-about-the-1-function">An Opening Note about the `1` Function</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%202.md#6-ifelse">`6`, "If/Else"</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%202.md#7-the-composition-opcode">`7`, the "Composition" Opcode</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%202.md#8-the-variable-adder-opcode">`8`, the "Variable Adder" Opcode</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%202.md#9-create-a-core-and-run-one-of-its-arms">`9`, Create a Core and Run One of Its Arms</a> </li>
+<li> <a href="https://github.com/timlucmiptev/nock-for-everyday-coders/blob/master/Nock%20for%20Everyday%20Coders%20Part%202.md#real-nock-code">Real Nock Code</a> </li>
 </ul>
 </details>
