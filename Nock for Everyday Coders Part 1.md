@@ -170,6 +170,11 @@ Here `a` is the subject, `b` is the formula, and `/[b a]` is pseudocode that mea
 
 So because the interpreter isn't run again on `b`, it **must** be just a number, otherwise the instruction to "get the subject value at this memory slot" makes no sense.
 
+### Summary of `0`
+`0` is **everywhere** in Nock, because "get something from a memory slot" really means "store stuff in a place and get it whenever I want," which is another name for creating variables. These memory slot numbers take the place of variable names.
+
+If you're familiar with assembly or C, they're conceptually similar to memory pointers or registers in how Nock uses them. Keep in mind though, Nock is functional/immutable, so it doesn't update memory locations: it creates copies of data structures with altered values.
+
 ### `1`, the "Quoter" Function
 This is another really simple function. You can think of it as a "quoter": it just returns any value passed to it **exactly as it is**. It ignores the subject, and just quotes the value after it. Let's look at a couple examples.
 ```
@@ -278,7 +283,8 @@ Here we again see lots of `4`s applied consecutively, and we also see how we can
 a (the subject) = [100 150]
 *[[100 150] [4 4 0 3]]
 +*[[100 150] [4 0 3]]
-:: Now we've extracted all the +s, and just evaluate the 0 opcode
+:: Now we've extracted all the increments ("+" signs)
+:: So we just grab the value at memory slot 3 ([0 3] command)
 ++*[[100 150] [0 3]]
 ++(150)
 +(151)
