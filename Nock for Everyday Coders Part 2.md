@@ -62,7 +62,7 @@ The pseuodocode has 4 nested `[subject formula]`s, so I'm going to unwrap those 
 4. finally, subject `a` evalauted against formula `[4 4 b]`
 
 #### Step 4
-Remember, our English explanation was "see if `*[a b]` is true or false, and do different actions depending on that. So ***(4)*** is that check. 
+Remember, our English explanation was "see if `*[a b]` is true or false, and do different actions depending on that. So ***(4)*** is that check.
 
 Let's say we have `a` as `59`, and `b` just the quoted value `0` (true)
 ```
@@ -120,28 +120,6 @@ And now we're back at the top level, where we just use whichever formula we yoin
 :: our original a, from step 4, was 59
 *[59 [0 1]
 59
-```
-
-### Example Code Expansion of `6`
-```
-~zod:dojo> .*(1 [6 [0 1] [0 1] [4 0 1]])
-:: PSEUDOCODE
-:: expansion: *[a *[[c d] 0 *[[2 3] 0 *[a 4 4 b]]]]
-*[1 *[[[0 1] [4 0 1]] 0 *[[2 3] 0 *[1 4 4 [0 1]]]]]
-:: factor out the 4 opcodes
-*[1 *[[[0 1] [4 0 1]] 0 *[[2 3] 0 ++*[1 [0 1]]]]]
-:: b evaluates to 1 (yank memory slot 1)
-*[1 *[[[0 1] [4 0 1]] 0 *[[2 3] 0 ++(1)]]]
-:: evaluate the two increments
-*[1 *[[[0 1] [4 0 1]] 0 *[[2 3] 0 3]]]
-:: get memory slot 3 from [2 3]
-*[1 *[[[0 1] [4 0 1]] 0 3]]
-:: [0 3] means get memory slot 3 from the subject (formula [4 0 1])
-*[1 [4 0 1]]
-:: factor out the 4 opcode
-+*[1 [0 1]]
-+(1)
-2
 ```
 
 ### Summary of `6`
@@ -278,7 +256,7 @@ The "new subjects" created by `*[a c]` are cores, and the things selected from m
 To finish this off and take your new powers for a spin, let's look at some real Nock code from the wild.
 I got the below example from the Dojo. It's a mold: a function that takes a noun and returns it if it's the correct type, and crashes if not. The mold here checks whether the input noun is a boolean (`0` or `1`).
 
-(To see more examples of basic molds, go to the [Hoon Tutorial 2.3](https://urbit.org/docs/tutorials/hoon/structures-and-complex-types/)). 
+(To see more examples of basic molds, go to the [Hoon Tutorial 2.3](https://urbit.org/docs/tutorials/hoon/structures-and-complex-types/)).
 
 ### A Boolean Mold
 ```
@@ -303,7 +281,7 @@ So, we know the below code is a gate that evaluates its sample, and returns it i
 ```
 We start with `6`, which means this is an if-else. The true/false test is the next element:
 ```
-[5 [1 0] 0 6] 
+[5 [1 0] 0 6]
 ```
 This compares the quoted value `0` (from `[1 0]`) with the value at memory slot `6` in the subject (`[0 6]`).
 

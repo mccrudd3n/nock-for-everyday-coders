@@ -1,37 +1,12 @@
-# Nock for Everyday Coders, Part 1: Basic Functions and Opcodes
-By `~timluc-miptev`
-
-Twitter: [@basile_sportif](https://twitter.com/basile_sportif)
-
 ## Table of Contents
-1. [Intro](#tldrintro)
-2. [Getting Started and Confusing Points](#getting-started--confusing-points)
-3. [Nock's Simplest Functions, 0 and 1](#nocks-simplest-functions-0-and-1)
-4. [4, the Incrementing Function](#4-the-incrementing-function)
-5. [Cell-Maker (aka the Distribution Rule)](#the-cell-maker-aka-the-distribution-rule)
-6. [3 and 5, the "Is This a Cell?" and "Equality Test" Functions](#3-and-5-the-is-this-a-cell-and-equality-test-functions)
-7. [2, the "Subject-Altering" Function](#2-the-subject-altering-function)
-8. [Summary and First Hoon Connections](#summary-and-first-hoon-connections)
-9. [End of Part 1](#end-of-part-1)
-## tldr;/Intro
-### For Whom?
-Nock is not super complex, and most normal programmers can learn the basics of it rapidly. The mental model you gain from Nock turns out to be **very** useful in learning Hoon and understanding Urbit.
-
-The Urbit docs generally suggest not worrying about Nock, but it's very simple and small, so I think most normal programmers will feel **more** comfortable in Hoon if they learn its basics.
-
-By "normal programmer", I mean: a person of somewhat above-average IQ (programming is a pretty self-selecting profession) who works relatively high up the modern tech stack, abstracted from low-level stuff. His/her day job likely consists of a lot of React/JS/SQL/Rails/Java etc, and he/she is not really familiar with assembly/OS stuff.  That describes me and most programmers I know.
-
-What about people who aren't programmers? Anecdotally, they seem to have less trouble "getting" Hoon, so this might not be necessary for them. This might be because people who *have* coded a lot intuitively want to know what is "magic" and what's not in a given language, and learning Nock seems to give a better intuitive feel for that than just starting with Hoon.
-
-### Why Is This Necessary?
-The [official Nock docs](https://urbit.org/docs/tutorials/nock/definition/) on the Urbit site are accurate, thorough, and well-explained. However, they take a little while to get to the practical examples, and probably lose a fair number of people along the way. I'm not trying to be original; I'm just a translator. 
-
-If I say something here and you're like *"wait, isn't that already in the Nock docs?"*, the answer is **yes, it is; I'm just changing the order for clarity/teaching purposes**, in ways that were helpful to me when I learned.
-
-### Goals by the End of the Series
-* to explain Nock clearly in terms most programmers will relate to
-* impart a feeling of confidence with very basic Nock
-* give a knowledge of Nock’s idioms and big "wins" so that they carry over to Hoon learning
+1. [Getting Started and Confusing Points](#getting-started--confusing-points)
+2. [Nock's Simplest Functions, 0 and 1](#nocks-simplest-functions-0-and-1)
+3. [4, the Incrementing Function](#4-the-incrementing-function)
+4. [Cell-Maker (aka the Distribution Rule)](#the-cell-maker-aka-the-distribution-rule)
+5. [3 and 5, the "Is This a Cell?" and "Equality Test" Functions](#3-and-5-the-is-this-a-cell-and-equality-test-functions)
+6. [2, the "Subject-Altering" Function](#2-the-subject-altering-function)
+7. [Summary and First Hoon Connections](#summary-and-first-hoon-connections)
+8. [End of Part 1](#end-of-part-1)
 
 ## Getting Started--Confusing Points
 When people first look at Nock, they see the [definition page](https://urbit.org/docs/tutorials/nock/definition/), which, tbh, is fairly intimidating.
@@ -62,7 +37,7 @@ The symbols and spec are for the former. They are pseudocode, **not real Nock co
 The lists of numbers are the **actual Nock code**. That is what we will be focusing on, and we'll use a combination of English and the pseudocode symbols (when helpful) to understand them.
 
 ### How Nock Works
-It's simple. 
+It's simple.
 1. You feed a list of numbers to a working Nock interpreter
 2. The interpreter runs it
 3. The interpreter produces a noun as output. A noun can be
@@ -97,7 +72,7 @@ OK, so the interpreter takes two arguments, a "subject" and a "formula". Both ar
 ```
 In the above, `42` is our subject. `[0 1]` is our formula.
 
-Formulas are always cells, and the first element of the cell is a number that you can think of as ***the name of the function***. 
+Formulas are always cells, and the first element of the cell is a number that you can think of as ***the name of the function***.
 
 In this case, our function name is `0`, which is the memory slot function. It is always followed by 1 number, in this case `1`, which is the number of the memory slot to fetch in the subject.
 
@@ -125,7 +100,7 @@ Let's take an example tree to illustrate. In Nock cell form, the tree is:
 ```
 [[4 5] [6 14 15]]
 ```
-Drawn as ASCII art (this is **not** real Nock code), the tree looks like: 
+Drawn as ASCII art (this is **not** real Nock code), the tree looks like:
 ```
      1
   2      3
@@ -183,7 +158,7 @@ This is another really simple function. You can think of it as a "quoter": it ju
 :: [1 2 587] is same as [1 [2 [587]]]
 ~zod:dojo> .*([20 30] [1 [2 [587])
 [2 587]
-~zod:dojo> 
+~zod:dojo>
 ```
 It doesn't matter how much information is after the `1`: `1` is a dumb function that just returns it all.
 
@@ -192,7 +167,7 @@ The pseudocode for `1` is:
 *[a 1 b]  b
 ```
 
-In English, this means: "ignore the subject `a`, and just return everything after the `1` **exactly as it is**. 
+In English, this means: "ignore the subject `a`, and just return everything after the `1` **exactly as it is**.
 
 Let's look at our first example, `.*([20 30] [1 67])`. The subject `a` is `[20 30]`, so we ignore that. What's after the `1`? `67`, so we return that.
 
@@ -441,7 +416,7 @@ Example 4 -- check whether multiple things are cells using Cell-Maker
 ~zod:dojo> .*([[50 51] 52] [[3 0 2] [3 0 3]])
 [0 1]
 *[[[50 51] 52] [[3 0 2] [3 0 3]]]
-?[*[[50 51] 52] [0 2]] 
+?[*[[50 51] 52] [0 2]]
    *[[50 51] [0 3]]]
 :: yank memory slots 2 and 3
 ?*[[50 51] 52]
@@ -484,10 +459,10 @@ Example 3 -- compare two values, one of which comes from a nested function
 :: PSEUDOCODE
 *[[50 51] [5 [4 0 2] [0 3]]]
 :: factor out the =
-=[*[[50 51] [4 0 2]] 
+=[*[[50 51] [4 0 2]]
    *[[50 51] [0 3]]]
 :: factor out the +
-=[+*[[50 51] [0 2]] 
+=[+*[[50 51] [0 2]]
     *[[50 51] [0 3]]]
 :: get memory slots 2 and 3
 =[+50 51]
@@ -516,7 +491,7 @@ In all our examples so far, the subject has been defined at the start when we ca
 
 
 ### Motivation, or "Why Would I Want a Different Subject?"
- 
+
 A different subject? Why would we want that? Here's an easy example. Say you found the following piece of Nock code on the [interwebz](https://urbit.org/docs/tutorials/nock/example/):
 ```
 [8 [1 0] 8 [1 6 [5 [0 7] 4 0 6] [0 6] 9 2 [0 2] [4 0 6] 0 7] 9 2 0 1]
